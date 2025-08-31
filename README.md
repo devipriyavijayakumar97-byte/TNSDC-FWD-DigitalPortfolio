@@ -1,1 +1,234 @@
-# TNSDC-FWD-DigitalPortfolio
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Portfolio</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0; padding: 0;
+      background: #f9f9f9;
+      color: #333;
+      scroll-behavior: smooth;
+    }
+    header {
+      background: #222;
+      padding: 1rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .nav-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+    nav button {
+      background: #444;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s, transform 0.2s;
+    }
+    nav button:hover {
+      background: #666;
+      transform: scale(1.05);
+    }
+    nav button.active {
+      background: #00aaff;
+    }
+    section {
+      padding: 80px 20px; /* more breathing room */
+      max-width: 1200px;
+      margin: auto;
+      min-height: 100vh;
+    }
+    h1, h2 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    /* About Section */
+    .about-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 50px;
+      flex-wrap: wrap;
+    }
+    .about-container img {
+      width: 300px;   /* bigger photo */
+      height: 300px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+    }
+    .about-container p {
+      max-width: 600px;
+      line-height: 1.8;
+      font-size: 1.1rem;
+    }
+    /* Projects */
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+    .project-card {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .project-card img {
+      width: 100%;
+      height: 250px; /* larger image */
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 15px;
+    }
+    /* Contact */
+    form {
+      display: flex;
+      flex-direction: column;
+      max-width: 450px;
+      margin: auto;
+    }
+    input, textarea {
+      margin: 12px 0;
+      padding: 12px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+    button[type="submit"] {
+      background: #222;
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    button[type="submit"]:hover {
+      background: #444;
+    }
+    #formMessage {
+      color: green;
+      font-weight: bold;
+      text-align: center;
+      display: none;
+      margin-top: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header with button navigation -->
+  <header>
+    <nav>
+      <div class="nav-container">
+        <button data-target="home" class="active">Home</button>
+        <button data-target="about">About</button>
+        <button data-target="projects">Projects</button>
+        <button data-target="contact">Contact Me</button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Home Section -->
+  <section id="home">
+    <h1>Hi, I'm [Your Name]</h1>
+    <p style="text-align:center; font-size: 1.2rem;">Welcome to my digital portfolio 🌟</p>
+  </section>
+
+  <!-- About Section -->
+  <section id="about">
+    <h2>About Me</h2>
+    <div class="about-container">
+      <img src="your-photo.jpg" alt="My Photo">
+      <p>Hello! I am a student passionate about <b>[your interests]</b>.  
+         I enjoy working on projects related to <b>[field/skills]</b>.  
+         My goal is to <b>[career aspiration]</b>.</p>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects">
+    <h2>My Projects</h2>
+    <div class="projects">
+      <div class="project-card">
+        <img src="project1.jpg" alt="Project One">
+        <h3>Project One</h3>
+        <p>Short description of the project.</p>
+      </div>
+      <div class="project-card">
+        <img src="project2.jpg" alt="Project Two">
+        <h3>Project Two</h3>
+        <p>Short description of the project.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact">
+    <h2>Contact Me</h2>
+    <form id="contactForm">
+      <input type="text" placeholder="Your Name" required>
+      <input type="email" placeholder="Your Email" required>
+      <textarea rows="6" placeholder="Your Message" required></textarea>
+      <button type="submit">Send</button>
+      <p id="formMessage">✅ Message sent successfully!</p>
+    </form>
+  </section>
+
+  <script>
+    // Smooth scroll when clicking buttons
+    document.querySelectorAll("nav button").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.getElementById(btn.dataset.target).scrollIntoView({behavior: "smooth"});
+      });
+    });
+
+    // Highlight active button while scrolling
+    const sections = document.querySelectorAll("section");
+    const navButtons = document.querySelectorAll("nav button");
+
+    window.addEventListener("scroll", () => {
+      let current = "";
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop - 120;
+        if (scrollY >= sectionTop) {
+          current = section.getAttribute("id");
+        }
+      });
+      navButtons.forEach(btn => {
+        btn.classList.remove("active");
+        if (btn.dataset.target === current) {
+          btn.classList.add("active");
+        }
+      });
+    });
+
+    // Contact form success message
+    const form = document.getElementById("contactForm");
+    const formMessage = document.getElementById("formMessage");
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+      formMessage.style.display = "block";
+      form.reset();
+      setTimeout(() => {
+        formMessage.style.display = "none";
+      }, 3000);
+    });
+  </script>
+
+</body>
+</html>
